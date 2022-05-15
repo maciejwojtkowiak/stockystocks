@@ -3,20 +3,17 @@ import Image from "next/image";
 
 import { Asset } from "../../types/assetType";
 import React from "react";
+import { MongoClient } from "mongodb";
 
 interface funcProps {
-  asset: Asset[];
+  asset?: Asset[];
 }
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
-  let chosenAsset: "";
   const onAddToFavHandler = async () => {
-    const content = {
-      title: "testujemy",
-    };
     await fetch("/api/search", {
       method: "POST",
-      body: JSON.stringify(content),
+      body: JSON.stringify(props.asset![0]),
       headers: {
         "Content-type": "application/json",
       },
@@ -74,5 +71,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     </React.Fragment>
   );
 };
+
+export function getStaticProps() {}
 
 export default DetailedAssetCard;
