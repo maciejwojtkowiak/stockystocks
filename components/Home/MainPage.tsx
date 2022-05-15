@@ -2,6 +2,8 @@ import CapitalTable from "./ChartSection/CapitalTable";
 import FinancialChart from "./ChartSection/FinancialChart";
 import DetailedAssetsGrid from "./DetailedStocks/DetailedAssetsGrid";
 import Profile from "./Profile/Profile";
+import { GetStaticProps } from "next";
+import { getDataFromMongo } from "../helpers/getDataFromMongo";
 
 const MainPage = () => {
   return (

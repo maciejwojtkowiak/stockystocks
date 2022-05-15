@@ -1,9 +1,13 @@
 import { Fragment, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { Asset } from "../../types/assetType";
 
-const SearchForm = () => {
+interface funcProps {
+  setAsset: (val: Asset[]) => void;
+}
+
+const SearchForm: React.FC<funcProps> = (props) => {
   const [assetName, setAssetName] = useState<string>("");
-  const [detailedAsset, setDetailedAsset] = useState();
   const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAssetName(e.target.value);
   };
@@ -19,9 +23,10 @@ const SearchForm = () => {
           },
         }
       );
-      const data = await response.json();
+      const data = (await response.json()) as Asset[];
       console.log(data);
-      setDetailedAsset(data);
+
+      props.setAsset(data);
     };
 
     getData();

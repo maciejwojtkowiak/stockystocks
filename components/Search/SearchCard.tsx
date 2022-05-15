@@ -1,9 +1,14 @@
 import DetailedAssetCard from "../UI/DetailedAssetCard";
+import { Asset } from "../../types/assetType";
 
-const SearchCard = () => {
+interface funcProps {
+  asset: Asset[];
+}
+
+const SearchCard: React.FC<funcProps> = (props) => {
   return (
     <div className=" border h-1/2 mt-16 bg-red-100 rounded-lg m-4  ">
-      <DetailedAssetCard />
+      <DetailedAssetCard asset={props.asset} />
       dsad
     </div>
   );
