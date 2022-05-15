@@ -1,4 +1,6 @@
 import DetailedAssetCard from "../../UI/DetailedAssetCard";
+import { GetStaticProps } from "next";
+import { getDataFromMongo } from "../../../helpers/getDataFromMongo";
 
 const DetailedAssetsGrid = () => {
   return (

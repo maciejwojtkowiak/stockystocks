@@ -4,9 +4,6 @@ import Image from "next/image";
 import { Asset } from "../../types/assetType";
 import React from "react";
 
-import { GetStaticProps } from "next";
-import { getDataFromMongo } from "../helpers/getDataFromMongo";
-
 interface funcProps {
   asset?: Asset[];
 }

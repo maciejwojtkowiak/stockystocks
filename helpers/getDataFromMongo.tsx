@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { AssetFromDb } from "../../types/assetType";
+import { AssetFromDb } from "../types/assetType";
 
 export const getDataFromMongo = async () => {
   const client = await MongoClient.connect(

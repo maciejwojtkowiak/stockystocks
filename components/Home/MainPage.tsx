@@ -2,10 +2,11 @@ import CapitalTable from "./ChartSection/CapitalTable";
 import FinancialChart from "./ChartSection/FinancialChart";
 import DetailedAssetsGrid from "./DetailedStocks/DetailedAssetsGrid";
 import Profile from "./Profile/Profile";
-import { GetStaticProps } from "next";
-import { getDataFromMongo } from "../helpers/getDataFromMongo";
-
-const MainPage = () => {
+import { AssetFromDb } from "../../types/assetType";
+interface props {
+  mongoAssets: AssetFromDb;
+}
+const MainPage: React.FC<props> = () => {
   return (
     <div className="h-screen  grid place-items-center relative bg-gray-100 ">
       <h1 className="top-5 left-5 text-3xl absolute">Stocky Stocks</h1>
