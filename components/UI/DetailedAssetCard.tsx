@@ -3,7 +3,9 @@ import Image from "next/image";
 
 import { Asset } from "../../types/assetType";
 import React from "react";
-import { MongoClient } from "mongodb";
+
+import { GetStaticProps } from "next";
+import { getDataFromMongo } from "../helpers/getDataFromMongo";
 
 interface funcProps {
   asset?: Asset[];
@@ -71,7 +73,5 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     </React.Fragment>
   );
 };
-
-export function getStaticProps() {}
 
 export default DetailedAssetCard;
