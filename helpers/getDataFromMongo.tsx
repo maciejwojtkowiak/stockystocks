@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { AssetFromDb } from "../../types/assetType";
+import { AssetFromDb, TransformedAssetsFromDb } from "../types/assetType";
 
 export const getDataFromMongo = async () => {
   const client = await MongoClient.connect(
@@ -14,11 +14,10 @@ export const getDataFromMongo = async () => {
     .toArray()) as AssetFromDb[];
   const correctAsset = detailedAssets.map((asset) => {
     return {
-      asset: {
-        ...asset,
-        _id: asset._id.toString(),
-      },
+      ...asset,
+      _id: asset._id.toString(),
     };
   });
-  return correctAsset;
+
+  return correctAsset as TransformedAssetsFromDb[];
 };
