@@ -1,7 +1,7 @@
 import SearchForm from "./SearchForm";
 import SearchCard from "./SearchCard";
 import { useState } from "react";
-import { setDatasets } from "react-chartjs-2/dist/utils";
+
 import { Asset } from "../../types/assetType";
 
 const SearchContainer = () => {

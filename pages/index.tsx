@@ -3,11 +3,13 @@ import MainPage from "../components/Home/MainPage";
 import { GetStaticProps } from "next";
 import { getDataFromMongo } from "../helpers/getDataFromMongo";
 import { InferGetStaticPropsType } from "next";
+import { AssetFromDb } from "../types/assetType";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  return <MainPage mongoAssets={props.mongoAssets} />;
+  console.log(props.mongoAssets);
+  return <MainPage />;
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

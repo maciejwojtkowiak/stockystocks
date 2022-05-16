@@ -3,9 +3,7 @@ import FinancialChart from "./ChartSection/FinancialChart";
 import DetailedAssetsGrid from "./DetailedStocks/DetailedAssetsGrid";
 import Profile from "./Profile/Profile";
 import { AssetFromDb } from "../../types/assetType";
-interface props {
-  mongoAssets: AssetFromDb;
-}
+interface props {}
 const MainPage: React.FC<props> = (props) => {
   return (
     <div className="h-screen  grid place-items-center relative bg-gray-100 ">
@@ -15,7 +13,7 @@ const MainPage: React.FC<props> = (props) => {
           <Profile />
         </div>
         <div className=" row-span-5 col-span-3 shadow-xl rounded-lg">
-          <DetailedAssetsGrid mongoAssets={props.mongoAssets} />
+          <DetailedAssetsGrid />
         </div>
         <div className=" bg-white row-span-3 col-span-2 shadow-xl rounded-lg">
           <FinancialChart />

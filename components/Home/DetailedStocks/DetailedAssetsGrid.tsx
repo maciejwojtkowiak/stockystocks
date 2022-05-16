@@ -1,8 +1,6 @@
 import DetailedAssetCard from "../../UI/DetailedAssetCard";
 import { AssetFromDb } from "../../../types/assetType";
-interface props {
-  mongoAssets: AssetFromDb;
-}
+interface props {}
 const DetailedAssetsGrid: React.FC<props> = () => {
   return (
     <div className=" h-full w-full grid grid-cols-1 grid-rows-3 gap-3">
