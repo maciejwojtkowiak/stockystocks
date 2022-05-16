@@ -1,13 +1,8 @@
-import { MongoClient } from "mongodb";
 import { AssetFromDb, TransformedAssetsFromDb } from "../types/assetType";
+import connectToMongo from "./connectToMongo";
 
 export const getDataFromMongo = async () => {
-  const client = await MongoClient.connect(
-    "mongodb+srv://maciejtest:ipT4zxXWbIF4sCqG@cluster0.vv1w4.mongodb.net/stockystocks?retryWrites=true&w=majority"
-  );
-
-  const db = client.db();
-
+  const db = await connectToMongo();
   const detailedAssetsCollection = db.collection("detailedAssets");
   const detailedAssets = (await detailedAssetsCollection
     .find({})
