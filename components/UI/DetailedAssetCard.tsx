@@ -1,11 +1,7 @@
 import Btc from "../../images/btc.jpg";
 import Image from "next/image";
 
-import {
-  Asset,
-  AssetFromDb,
-  TransformedAssetsFromDb,
-} from "../../types/assetType";
+import { Asset, TransformedAssetsFromDb } from "../../types/assetType";
 import React from "react";
 
 interface funcProps {
@@ -27,6 +23,12 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   };
 
   if (!props.isSearched && props.mongoAssets) {
+    const roundPrice = (price: number) => {
+      return price.toFixed(2);
+    };
+    const numberToKkRepresentation = (price: number) => {
+      return (price / 1000000).toFixed(2);
+    };
     return (
       <React.Fragment>
         {" "}
@@ -36,22 +38,38 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
           </div>
           <div className=" grid grid-cols-fill-40 place-items-center grid-rows-2 auto-rows-min my-6 text-center">
             <p>
-              Hello <span className="block ">{props.mongoAssets[0].name}</span>
+              Name: <span className="block ">{props.mongoAssets[0].name}</span>
             </p>
             <p>
-              Hello <span className="block ">123</span>
+              Id:
+              <span className="block ">{props.mongoAssets[0].asset_id}</span>
             </p>
             <p>
-              Hello <span className="block ">123</span>
+              Price:{" "}
+              <span className="block ">
+                {roundPrice(props.mongoAssets[0].price_usd)}$
+              </span>
             </p>
             <p>
-              Hello <span className="block  ">123</span>
+              1hrs volume{" "}
+              <span className="block  ">
+                {numberToKkRepresentation(props.mongoAssets[0].volume_1hrs_usd)}
+                kk$
+              </span>
             </p>
             <p>
-              Hello <span className="block ">123</span>
+              1 day volume{" "}
+              <span className="block ">
+                {numberToKkRepresentation(props.mongoAssets[0].volume_1day_usd)}
+                kk$
+              </span>
             </p>
             <p>
-              Hello <span className="block ">123</span>
+              1 mth volume{" "}
+              <span className="block ">
+                {numberToKkRepresentation(props.mongoAssets[0].volume_1mth_usd)}
+                kk$
+              </span>
             </p>
             <div className="lg:col-start-3 text-2xl">
               <button className="shadow-lg bg-green-400 shadow-green-500/50 px-4 py-1 mr-4">
@@ -59,12 +77,6 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
               </button>
               <button className="shadow-lg bg-red-500 shadow-red-500/50 px-4 py-1">
                 Sell
-              </button>
-              <button
-                onClick={onAddToFavHandler}
-                className="shadow-lg bg-blue-500 shadow-blue-500/50 px-4 py-1"
-              >
-                Add to fav
               </button>
             </div>
           </div>
