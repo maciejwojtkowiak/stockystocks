@@ -26,12 +26,6 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     console.log("SUCCESS");
   };
 
-  console.log(props.mongoAssets);
-  if (props.mongoAssets) {
-    console.log("at zero");
-    console.log(props.mongoAssets[0].name);
-  }
-
   if (!props.isSearched && props.mongoAssets) {
     return (
       <React.Fragment>

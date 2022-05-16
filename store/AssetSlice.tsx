@@ -1,3 +1,0 @@
-const InitialState = {
-  mongoAssets: TransformedAssetsFromDb,
-};
