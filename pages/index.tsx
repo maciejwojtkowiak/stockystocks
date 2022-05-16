@@ -8,8 +8,7 @@ import { AssetFromDb } from "../types/assetType";
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  console.log(props.mongoAssets);
-  return <MainPage />;
+  return <MainPage mongoAssets={props.mongoAssets} />;
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
