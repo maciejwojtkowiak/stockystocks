@@ -1,13 +1,14 @@
 import DetailedAssetCard from "../../UI/DetailedAssetCard";
-import { GetStaticProps } from "next";
-import { getDataFromMongo } from "../../../helpers/getDataFromMongo";
-
-const DetailedAssetsGrid = () => {
+import { AssetFromDb } from "../../../types/assetType";
+interface props {
+  mongoAssets: AssetFromDb;
+}
+const DetailedAssetsGrid: React.FC<props> = () => {
   return (
     <div className=" h-full w-full grid grid-cols-1 grid-rows-3 gap-3">
-      <DetailedAssetCard />
-      <DetailedAssetCard />
-      <DetailedAssetCard />
+      <DetailedAssetCard isSearched={false} />
+      <DetailedAssetCard isSearched={false} />
+      <DetailedAssetCard isSearched={false} />
     </div>
   );
 };

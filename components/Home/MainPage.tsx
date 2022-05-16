@@ -6,7 +6,7 @@ import { AssetFromDb } from "../../types/assetType";
 interface props {
   mongoAssets: AssetFromDb;
 }
-const MainPage: React.FC<props> = () => {
+const MainPage: React.FC<props> = (props) => {
   return (
     <div className="h-screen  grid place-items-center relative bg-gray-100 ">
       <h1 className="top-5 left-5 text-3xl absolute">Stocky Stocks</h1>
@@ -15,7 +15,7 @@ const MainPage: React.FC<props> = () => {
           <Profile />
         </div>
         <div className=" row-span-5 col-span-3 shadow-xl rounded-lg">
-          <DetailedAssetsGrid />
+          <DetailedAssetsGrid mongoAssets={props.mongoAssets} />
         </div>
         <div className=" bg-white row-span-3 col-span-2 shadow-xl rounded-lg">
           <FinancialChart />

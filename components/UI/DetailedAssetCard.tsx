@@ -1,11 +1,13 @@
 import Btc from "../../images/btc.jpg";
 import Image from "next/image";
 
-import { Asset } from "../../types/assetType";
+import { Asset, AssetFromDb } from "../../types/assetType";
 import React from "react";
 
 interface funcProps {
+  detailedAsset?: AssetFromDb;
   asset?: Asset[];
+  isSearched: boolean;
 }
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
