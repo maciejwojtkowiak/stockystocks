@@ -6,7 +6,7 @@ import React from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
 
 interface funcProps {
-  asset?: Asset[];
+  asset?: Asset;
   isSearched: boolean;
 }
 
@@ -14,7 +14,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const onAddToFavHandler = async () => {
     await fetch("/api/search", {
       method: "POST",
-      body: JSON.stringify(props.asset![0]),
+      body: JSON.stringify(props.asset?.asset_id),
       headers: {
         "Content-type": "application/json",
       },
@@ -55,7 +55,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
             <p>
               Hello
               <span className="block ">
-                {props.asset !== undefined ? props.asset[0].name : ""}
+                {props.asset !== undefined ? props.asset.name : ""}
               </span>
             </p>
             <p>

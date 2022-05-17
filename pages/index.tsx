@@ -8,7 +8,7 @@ import { Asset } from "../types/assetType";
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  return <MainPage asset={props.assets} />;
+  return <MainPage assets={props.assets} />;
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {

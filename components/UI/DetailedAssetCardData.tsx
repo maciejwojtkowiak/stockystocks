@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Asset } from "../../types/assetType";
 
 interface funcProps {
-  asset: Asset[];
+  asset: Asset;
 }
 
 const DetailedAssetCardData: React.FC<funcProps> = (props) => {
@@ -17,34 +17,34 @@ const DetailedAssetCardData: React.FC<funcProps> = (props) => {
   return (
     <Fragment>
       <p>
-        Name: <span className="block ">{props.asset[0].name}</span>
+        Name: <span className="block ">{props.asset.name}</span>
       </p>
       <p>
         Id:
-        <span className="block ">{props.asset[0].asset_id}</span>
+        <span className="block ">{props.asset.asset_id}</span>
       </p>
       <p>
         Price:{" "}
-        <span className="block ">{roundPrice(props.asset[0].price_usd)}$</span>
+        <span className="block ">{roundPrice(props.asset.price_usd)}$</span>
       </p>
       <p>
         1hrs volume{" "}
         <span className="block  ">
-          {numberToKkRepresentation(props.asset[0].volume_1hrs_usd)}
+          {numberToKkRepresentation(props.asset.volume_1hrs_usd)}
           kk$
         </span>
       </p>
       <p>
         1 day volume{" "}
         <span className="block ">
-          {numberToKkRepresentation(props.asset[0].volume_1day_usd)}
+          {numberToKkRepresentation(props.asset.volume_1day_usd)}
           kk$
         </span>
       </p>
       <p>
         1 mth volume{" "}
         <span className="block ">
-          {numberToKkRepresentation(props.asset[0].volume_1mth_usd)}
+          {numberToKkRepresentation(props.asset.volume_1mth_usd)}
           kk$
         </span>
       </p>

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
 import { RootState } from "../../store/Store";
 interface props {
-  asset: Asset[];
+  assets: Asset[];
 }
 const MainPage: React.FC<props> = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const MainPage: React.FC<props> = (props) => {
           <Profile />
         </div>
         <div className=" row-span-5 col-span-3 shadow-xl rounded-lg">
-          <DetailedAssetsGrid asset={props.asset} />
+          <DetailedAssetsGrid assets={props.assets} />
         </div>
         <div className=" bg-white row-span-3 col-span-2 shadow-xl rounded-lg">
           <FinancialChart />
