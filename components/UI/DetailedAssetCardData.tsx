@@ -16,7 +16,7 @@ const DetailedAssetCardData: React.FC<funcProps> = (props) => {
 
   return (
     <Fragment>
-      <p>
+      {/* <p>
         Name: <span className="block ">{props.asset[0].name}</span>
       </p>
       <p>
@@ -47,7 +47,7 @@ const DetailedAssetCardData: React.FC<funcProps> = (props) => {
           {numberToKkRepresentation(props.asset[0].volume_1mth_usd)}
           kk$
         </span>
-      </p>
+      </p> */}
     </Fragment>
   );
 };

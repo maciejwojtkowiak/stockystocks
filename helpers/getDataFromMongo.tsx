@@ -1,8 +1,4 @@
-import {
-  Asset,
-  AssetFromDb,
-  TransformedAssetsFromDb,
-} from "../types/assetType";
+import { AssetFromDb } from "../types/assetType";
 import connectToMongo from "./connectToMongo";
 
 export const getDataFromMongo = async () => {
@@ -14,8 +10,6 @@ export const getDataFromMongo = async () => {
     .find({})
     .toArray()) as AssetFromDb[];
   detailedAssets.forEach((asset) => idArray.push(asset.asset_id));
-  console.log("it is array");
-  console.log(idArray);
 
   return idArray;
 };
