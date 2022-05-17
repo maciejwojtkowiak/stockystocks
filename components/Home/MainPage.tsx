@@ -2,12 +2,12 @@ import CapitalTable from "./ChartSection/CapitalTable";
 import FinancialChart from "./ChartSection/FinancialChart";
 import DetailedAssetsGrid from "./DetailedStocks/DetailedAssetsGrid";
 import Profile from "./Profile/Profile";
-import { TransformedAssetsFromDb } from "../../types/assetType";
+import { Asset } from "../../types/assetType";
 import { useDispatch, useSelector } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
 import { RootState } from "../../store/Store";
 interface props {
-  mongoAssets: TransformedAssetsFromDb[];
+  asset: Asset[];
 }
 const MainPage: React.FC<props> = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const MainPage: React.FC<props> = (props) => {
           <Profile />
         </div>
         <div className=" row-span-5 col-span-3 shadow-xl rounded-lg">
-          <DetailedAssetsGrid mongoAssets={props.mongoAssets} />
+          <DetailedAssetsGrid asset={props.asset} />
         </div>
         <div className=" bg-white row-span-3 col-span-2 shadow-xl rounded-lg">
           <FinancialChart />

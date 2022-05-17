@@ -7,14 +7,15 @@ import { InferGetStaticPropsType } from "next";
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  return <MainPage mongoAssets={props.mongoAssets} />;
+  console.log(props.assets);
+  return <MainPage asset={props.assets} />;
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const assets = await getDataFromMongo();
   return {
     props: {
-      mongoAssets: assets,
+      assets: assets,
     },
   };
 };
