@@ -2,7 +2,7 @@ import DetailedAssetCard from "../UI/DetailedAssetCard";
 import { Asset } from "../../types/assetType";
 
 interface funcProps {
-  asset: Asset[];
+  asset: Asset;
 }
 
 const SearchCard: React.FC<funcProps> = (props) => {

@@ -12,6 +12,7 @@ interface funcProps {
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const onAddToFavHandler = async () => {
+    console.log(props.asset);
     await fetch("/api/search", {
       method: "POST",
       body: JSON.stringify(props.asset?.asset_id),
