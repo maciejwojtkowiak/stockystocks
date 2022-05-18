@@ -1,7 +1,7 @@
 import Btc from "../../images/btc.jpg";
 import Image from "next/image";
-
-import { Asset, TransformedAssetsFromDb } from "../../types/assetType";
+import { Asset } from "../../types/assetType";
+import { FaTrash } from "react-icons/fa";
 import React from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
 
@@ -11,8 +11,8 @@ interface funcProps {
 }
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
+  // it is func when user search for item
   const onAddToFavHandler = async () => {
-    console.log(props.asset);
     await fetch("/api/search", {
       method: "POST",
       body: JSON.stringify(props.asset?.asset_id),
@@ -22,10 +22,11 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     });
   };
 
+  // favs cards
   if (!props.isSearched && props.asset) {
     return (
       <React.Fragment>
-        <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl  ">
+        <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl relative  ">
           <div className="w-32 h-32 rounded-full grid self-center   ">
             <Image src={Btc} alt="" />
           </div>
@@ -40,14 +41,18 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
               </button>
             </div>
           </div>
+          <button>
+            <FaTrash className="absolute top-3 right-5" />
+          </button>
         </div>
       </React.Fragment>
     );
   }
 
+  // It is card when user searched
   return (
     <React.Fragment>
-      {props.asset !== undefined && props.isSearched && (
+      {props.isSearched && (
         <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl  ">
           <div className="w-32 h-32 rounded-full grid self-center   ">
             <Image src={Btc} alt="" />

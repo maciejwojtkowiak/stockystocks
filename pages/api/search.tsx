@@ -2,10 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from "mongodb";
 import { Asset } from "../../types/assetType";
 
-const addCryptoToFavorites = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const addedAsset = req.body as Asset;
     const client = await MongoClient.connect(
@@ -20,6 +17,10 @@ const addCryptoToFavorites = async (
     const detailedAssetsCollection = db.collection("detailedAssets");
     detailedAssetsCollection.insertOne(assetId);
   }
+
+  if (req.method === "POST") {
+    const assetIdForDeletion = req.body;
+  }
 };
 
-export default addCryptoToFavorites;
+export default handler;
