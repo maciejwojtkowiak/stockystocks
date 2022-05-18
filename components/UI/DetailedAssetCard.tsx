@@ -2,8 +2,9 @@ import Btc from "../../images/btc.jpg";
 import Image from "next/image";
 import { Asset } from "../../types/assetType";
 import { FaTrash } from "react-icons/fa";
-import React from "react";
+import React, { useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
+import BuyForm from "../Buy/BuyForm";
 
 interface funcProps {
   asset?: Asset;
@@ -11,6 +12,7 @@ interface funcProps {
 }
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
+  const [formIsShown, setFormIsShown] = useState<boolean>(false);
   // it is func when user search for item
   const onAddToFavHandler = async () => {
     await fetch("/api/search", {
@@ -32,6 +34,10 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     });
   };
 
+  const onShowFormHandler = () => {
+    setFormIsShown(true);
+  };
+
   // favs cards
   if (!props.isSearched && props.asset) {
     return (
@@ -43,7 +49,10 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
           <div className=" grid grid-cols-fill-40 place-items-center grid-rows-2 auto-rows-min my-6 text-center">
             <DetailedAssetCardData asset={props.asset} />
             <div className="lg:col-start-3 text-2xl">
-              <button className="shadow-lg bg-green-400 shadow-green-500/50 px-4 py-1 mr-4">
+              <button
+                onClick={onShowFormHandler}
+                className="shadow-lg bg-green-400 shadow-green-500/50 px-4 py-1 mr-4"
+              >
                 Buy
               </button>
               <button className="shadow-lg bg-red-500 shadow-red-500/50 px-4 py-1">
@@ -54,6 +63,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
           <button onClick={onDeleteHandler}>
             <FaTrash className="absolute top-3 right-5" />
           </button>
+          {formIsShown && <BuyForm asset={props.asset} />}
         </div>
       </React.Fragment>
     );

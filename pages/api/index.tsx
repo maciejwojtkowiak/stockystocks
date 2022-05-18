@@ -4,6 +4,10 @@ import connectToMongo from "../../helpers/connectToMongo";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
+    const boughtAsset = req.body;
+    const db = await connectToMongo();
+    const assetCollection = db.collection("boughtAssets");
+    await assetCollection.insertOne(boughtAsset);
   }
 
   if (req.method === "DELETE") {
