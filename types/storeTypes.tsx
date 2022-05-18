@@ -1,6 +1,5 @@
-import { TransformedAssetsFromDb } from "./assetType";
+import { Asset } from "./assetType";
 
 export type InitialState = {
-  mongoAssets: TransformedAssetsFromDb[];
-  message: string;
+  fetchedAssets: Asset[];
 };

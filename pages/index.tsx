@@ -4,10 +4,18 @@ import { GetStaticProps } from "next";
 import { getDataFromMongo } from "../helpers/getDataFromMongo";
 import { InferGetStaticPropsType } from "next";
 import { Asset } from "../types/assetType";
+import { useDispatch } from "react-redux";
+import { AssetAction } from "../store/asset-slice";
+import { useEffect } from "react";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(AssetAction.setFetchedAssets(props.assets));
+  }, []);
+
   return <MainPage assets={props.assets} />;
 };
 
@@ -29,7 +37,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       assets: (await Promise.all(promises)).flat(),
     },
-    revalidate: 3600,
+    revalidate: 10,
   };
 };
 
