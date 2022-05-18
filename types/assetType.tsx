@@ -43,3 +43,8 @@ export type TransformedAssetsFromDb = {
   volume_1mth_usd: number;
   price_usd: number;
 };
+
+export type BoughtAsset = {
+  asset: Asset;
+  quantity: number;
+};
