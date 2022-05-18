@@ -3,17 +3,19 @@ import { TransformedAssetsFromDb } from "../types/assetType";
 import { InitialState } from "../types/storeTypes";
 
 const INITIAL_VALUE: InitialState = {
-  mongoAssets: [],
-  message: "",
+  fetchedAssets: [],
+  boughtAssets: [],
 };
 
 const AssetSlice = createSlice({
   initialState: INITIAL_VALUE,
   name: "asset-slice",
   reducers: {
-    setMessage(state, action) {
-      const message = action.payload;
-      state.message = message;
+    setFetchedAssets(state, action) {
+      state.fetchedAssets = action.payload;
+    },
+    setBoughtAssets(state, action) {
+      state.boughtAssets = action.payload;
     },
   },
 });
