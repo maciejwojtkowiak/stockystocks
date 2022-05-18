@@ -45,6 +45,7 @@ export type TransformedAssetsFromDb = {
 };
 
 export type BoughtAsset = {
+  _id?: ObjectId | string;
   asset: Asset;
   quantity: number;
 };

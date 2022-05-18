@@ -4,13 +4,17 @@ import DetailedAssetsGrid from "./DetailedStocks/DetailedAssetsGrid";
 import Profile from "./Profile/Profile";
 import { Asset } from "../../types/assetType";
 import { useSelector } from "react-redux";
-import { AssetAction } from "../../store/asset-slice";
 import { RootState } from "../../store/Store";
 
 interface props {
   assets: Asset[];
 }
 const MainPage: React.FC<props> = (props) => {
+  const boughtItems = useSelector(
+    (state: RootState) => state.assets.boughtAssets
+  );
+  console.log("bought");
+  console.log(boughtItems);
   return (
     <div className="h-screen  grid place-items-center relative bg-gray-100 ">
       <h1 className="top-5 left-5 text-3xl absolute">Stocky Stocks</h1>

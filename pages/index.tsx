@@ -7,6 +7,7 @@ import { Asset } from "../types/assetType";
 import { useDispatch } from "react-redux";
 import { AssetAction } from "../store/asset-slice";
 import { useEffect } from "react";
+import getBoughtAssets from "../helpers/getBoughtAssets";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -14,6 +15,10 @@ const Home: NextPage = (
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AssetAction.setFetchedAssets(props.assets));
+  }, []);
+
+  useEffect(() => {
+    dispatch(AssetAction.setBoughtAssets(props.boughtAssets));
   }, []);
 
   return <MainPage assets={props.assets} />;
@@ -32,9 +37,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     });
     return await response.json();
   });
+  const boughtAssets = await getBoughtAssets();
 
   return {
     props: {
+      boughtAssets: boughtAssets,
       assets: (await Promise.all(promises)).flat(),
     },
     revalidate: 10,
