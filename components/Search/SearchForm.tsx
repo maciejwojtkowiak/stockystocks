@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { Asset } from "../../types/assetType";
 
 interface funcProps {
-  setAsset: (val: Asset[]) => void;
+  setAsset: (val: Asset) => void;
 }
 
 const SearchForm: React.FC<funcProps> = (props) => {
@@ -23,8 +23,7 @@ const SearchForm: React.FC<funcProps> = (props) => {
           },
         }
       );
-      const data = (await response.json()) as Asset[];
-      console.log(data);
+      const [data] = await response.json();
 
       props.setAsset(data);
     };

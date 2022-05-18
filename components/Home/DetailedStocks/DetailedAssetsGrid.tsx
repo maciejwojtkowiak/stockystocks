@@ -1,14 +1,15 @@
 import DetailedAssetCard from "../../UI/DetailedAssetCard";
-import { TransformedAssetsFromDb } from "../../../types/assetType";
+import { Asset, TransformedAssetsFromDb } from "../../../types/assetType";
+import { AssetAction } from "../../../store/asset-slice";
 interface props {
-  mongoAssets: TransformedAssetsFromDb[];
+  assets: Asset[];
 }
 const DetailedAssetsGrid: React.FC<props> = (props) => {
   return (
     <div className=" h-full w-full grid grid-cols-1 grid-rows-3 gap-3">
-      <DetailedAssetCard isSearched={false} mongoAssets={props.mongoAssets} />
-      <DetailedAssetCard isSearched={false} mongoAssets={props.mongoAssets} />
-      <DetailedAssetCard isSearched={false} mongoAssets={props.mongoAssets} />
+      {props.assets.map((asset, i) => (
+        <DetailedAssetCard key={i} isSearched={false} asset={asset} />
+      ))}
     </div>
   );
 };

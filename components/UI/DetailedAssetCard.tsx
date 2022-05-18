@@ -6,25 +6,23 @@ import React from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
 
 interface funcProps {
-  mongoAssets?: TransformedAssetsFromDb[];
-  asset?: Asset[];
+  asset?: Asset;
   isSearched: boolean;
 }
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const onAddToFavHandler = async () => {
+    console.log(props.asset);
     await fetch("/api/search", {
       method: "POST",
-      body: JSON.stringify(props.asset![0]),
+      body: JSON.stringify(props.asset?.asset_id),
       headers: {
         "Content-type": "application/json",
       },
     });
   };
 
-  console.log(props.asset);
-
-  if (!props.isSearched && props.mongoAssets) {
+  if (!props.isSearched && props.asset) {
     return (
       <React.Fragment>
         <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl  ">
@@ -32,7 +30,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
             <Image src={Btc} alt="" />
           </div>
           <div className=" grid grid-cols-fill-40 place-items-center grid-rows-2 auto-rows-min my-6 text-center">
-            <DetailedAssetCardData mongoAssets={props.mongoAssets} />
+            <DetailedAssetCardData asset={props.asset} />
             <div className="lg:col-start-3 text-2xl">
               <button className="shadow-lg bg-green-400 shadow-green-500/50 px-4 py-1 mr-4">
                 Buy
@@ -58,7 +56,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
             <p>
               Hello
               <span className="block ">
-                {props.asset !== undefined ? props.asset[0].name : ""}
+                {props.asset !== undefined ? props.asset.name : ""}
               </span>
             </p>
             <p>

@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Asset } from "../../types/assetType";
 
 const SearchContainer = () => {
-  const [detailedAsset, setDetailedAsset] = useState<Asset[]>();
+  const [detailedAsset, setDetailedAsset] = useState<Asset>();
 
-  const setDetailedAssetHandler = (val: Asset[]) => {
+  const setDetailedAssetHandler = (val: Asset) => {
     setDetailedAsset(val);
   };
   return (
