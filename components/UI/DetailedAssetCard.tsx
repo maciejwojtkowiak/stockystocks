@@ -22,6 +22,16 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     });
   };
 
+  const onDeleteHandler = async () => {
+    await fetch("/api/", {
+      method: "DELETE",
+      body: JSON.stringify(props.asset?.asset_id),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+  };
+
   // favs cards
   if (!props.isSearched && props.asset) {
     return (
@@ -41,7 +51,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
               </button>
             </div>
           </div>
-          <button>
+          <button onClick={onDeleteHandler}>
             <FaTrash className="absolute top-3 right-5" />
           </button>
         </div>

@@ -1,13 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { MongoClient } from "mongodb";
-import { Asset } from "../../types/assetType";
+
+import connectToMongo from "../../helpers/connectToMongo";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
   }
 
-  if (req.method === "POST") {
+  if (req.method === "DELETE") {
     const assetIdForDeletion = req.body;
+    const db = await connectToMongo();
+    const assetCollection = db.collection("detailedAssets");
+    await assetCollection.deleteOne({ asset_id: assetIdForDeletion });
+    console.log("items deleted");
+    console.log(assetCollection);
   }
 };
 
