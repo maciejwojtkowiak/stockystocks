@@ -33,6 +33,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   };
 
   const onDeleteHandler = async () => {
+    dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
     await fetch("/api/", {
       method: "DELETE",
       body: JSON.stringify(props.asset?.asset_id),
@@ -40,7 +41,6 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
         "Content-type": "application/json",
       },
     });
-    dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
   };
 
   const onShowFormHandler = () => {
