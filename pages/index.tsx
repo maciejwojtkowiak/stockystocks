@@ -17,9 +17,8 @@ const Home: NextPage = (
   useEffect(() => {
     dispatch(AssetAction.setFetchedAssets(props.assets));
     dispatch(AssetAction.setBoughtAssets(props.boughtAssets));
+    dispatch(AssetAction.setBalance(props.money));
   }, []);
-
-  console.log(props.money);
 
   return <MainPage assets={props.assets} />;
 };

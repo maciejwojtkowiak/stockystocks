@@ -5,6 +5,7 @@ import { InitialState } from "../types/storeTypes";
 const INITIAL_VALUE: InitialState = {
   fetchedAssets: [],
   boughtAssets: [],
+  balance: "",
 };
 
 const AssetSlice = createSlice({
@@ -16,6 +17,9 @@ const AssetSlice = createSlice({
     },
     setBoughtAssets(state, action) {
       state.boughtAssets = action.payload;
+    },
+    setBalance(state, action) {
+      state.balance = action.payload;
     },
   },
 });
