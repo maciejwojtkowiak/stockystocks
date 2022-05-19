@@ -7,8 +7,8 @@ const getMoney = async () => {
     .collection("money")
     .find({}, { projection: { _id: 0 } })
     .toArray()) as MoneyType[];
-  console.log(moneyCol);
-  return moneyCol;
+
+  return moneyCol[0].money;
 };
 
 export default getMoney;
