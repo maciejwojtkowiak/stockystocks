@@ -5,6 +5,9 @@ import { FaTrash } from "react-icons/fa";
 import React, { useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
 import BuyForm from "../Buy/BuyForm";
+import { useDispatch, useSelector } from "react-redux";
+import { AssetAction } from "../../store/asset-slice";
+import { RootState } from "../../store/Store";
 
 interface funcProps {
   asset?: Asset;
@@ -12,6 +15,11 @@ interface funcProps {
 }
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
+  const dispatch = useDispatch();
+  const fetchedAssets = useSelector(
+    (state: RootState) => state.assets.fetchedAssets
+  );
+  console.log(fetchedAssets);
   const [formIsShown, setFormIsShown] = useState<boolean>(false);
   // it is func when user search for item
   const onAddToFavHandler = async () => {
@@ -32,6 +40,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
         "Content-type": "application/json",
       },
     });
+    dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
   };
 
   const onShowFormHandler = () => {

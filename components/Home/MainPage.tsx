@@ -13,6 +13,7 @@ const MainPage: React.FC<props> = (props) => {
   const boughtItems = useSelector(
     (state: RootState) => state.assets.boughtAssets
   );
+
   console.log("bought");
   console.log(boughtItems);
   return (

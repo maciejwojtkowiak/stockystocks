@@ -25,13 +25,14 @@ const Home: NextPage = (
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const assetsId = await getDataFromMongo();
+  console.log(process.env.COIN_API_KEY!.toString());
 
   const promises = assetsId.map(async (id: string) => {
     const response = await fetch(`https://rest.coinapi.io/v1/assets/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-CoinAPI-Key": "EB201340-DF56-494E-BA6F-9524985EA13C",
+        "X-CoinAPI-Key": process.env.COIN_API_KEY!.toString(),
       },
     });
     return await response.json();

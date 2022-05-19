@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/Store";
 
 const CapitalTable = () => {
+  // zrob logike dla wydanych pieniedzy
   const money = useSelector((state: RootState) => state.assets.balance);
   const boughtAssets = useSelector(
     (state: RootState) => state.assets.boughtAssets
