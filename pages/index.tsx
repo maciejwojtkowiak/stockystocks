@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { AssetAction } from "../store/asset-slice";
 import { useEffect } from "react";
 import getBoughtAssets from "../helpers/getBoughtAssets";
+import getMoney from "../helpers/getMoney";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -15,10 +16,8 @@ const Home: NextPage = (
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AssetAction.setFetchedAssets(props.assets));
-  }, []);
-
-  useEffect(() => {
     dispatch(AssetAction.setBoughtAssets(props.boughtAssets));
+    dispatch(AssetAction.setBalance(props.money));
   }, []);
 
   return <MainPage assets={props.assets} />;
@@ -26,23 +25,26 @@ const Home: NextPage = (
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const assetsId = await getDataFromMongo();
+  console.log(process.env.COIN_API_KEY!.toString());
 
   const promises = assetsId.map(async (id: string) => {
     const response = await fetch(`https://rest.coinapi.io/v1/assets/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "X-CoinAPI-Key": "EB201340-DF56-494E-BA6F-9524985EA13C",
+        "X-CoinAPI-Key": process.env.COIN_API_KEY!.toString(),
       },
     });
     return await response.json();
   });
   const boughtAssets = await getBoughtAssets();
+  const money = await getMoney();
 
   return {
     props: {
       boughtAssets: boughtAssets,
       assets: (await Promise.all(promises)).flat(),
+      money: money,
     },
     revalidate: 10,
   };
