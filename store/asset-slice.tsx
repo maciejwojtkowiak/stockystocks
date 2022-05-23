@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { assert } from "console";
-import { Asset, TransformedAssetsFromDb } from "../types/assetType";
+
 import { InitialState } from "../types/storeTypes";
 
 const INITIAL_VALUE: InitialState = {

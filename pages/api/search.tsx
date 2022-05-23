@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     };
 
     const detailedAssetsCollection = db.collection("detailedAssets");
+
     detailedAssetsCollection.insertOne(assetId);
   }
 

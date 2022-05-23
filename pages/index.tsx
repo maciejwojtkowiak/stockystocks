@@ -23,11 +23,11 @@ const Home: NextPage = (
   return <MainPage assets={props.assets} />;
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const assetsId = await getDataFromMongo();
   console.log(process.env.COIN_API_KEY!.toString());
 
-  const promises = assetsId.map(async (id: string) => {
+  const assetsPromises = assetsId.map(async (id: string) => {
     const response = await fetch(`https://rest.coinapi.io/v1/assets/${id}`, {
       method: "GET",
       headers: {
@@ -43,10 +43,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       boughtAssets: boughtAssets,
-      assets: (await Promise.all(promises)).flat(),
+      assets: (await Promise.all(assetsPromises)).flat(),
       money: money,
     },
-    revalidate: 10,
+    revalidate: 3600,
   };
 };
 
