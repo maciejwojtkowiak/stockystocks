@@ -4,10 +4,11 @@ import { Asset } from "../../types/assetType";
 import { FaTrash } from "react-icons/fa";
 import React, { useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
-import BuyForm from "../Buy/BuyForm";
+import BuyForm from "../Buy/TransactionForm";
 import { useDispatch, useSelector } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
 import { RootState } from "../../store/Store";
+import TransactionForm from "../Buy/TransactionForm";
 
 interface funcProps {
   asset?: Asset;
@@ -19,8 +20,9 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const fetchedAssets = useSelector(
     (state: RootState) => state.assets.fetchedAssets
   );
-  console.log(fetchedAssets);
-  const [formIsShown, setFormIsShown] = useState<boolean>(false);
+
+  const [buyFormIsShown, setBuyFormIsShown] = useState<boolean>(false);
+  const [sellFormIsShown, setSellFormIsShown] = useState<boolean>(false);
   // it is func when user search for item
   const onAddToFavHandler = async () => {
     await fetch("/api/search", {
@@ -43,8 +45,11 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     });
   };
 
-  const onShowFormHandler = () => {
-    setFormIsShown(true);
+  const onShowBuyFormHandler = () => {
+    setBuyFormIsShown(true);
+  };
+  const onShowSellFormHandler = () => {
+    setSellFormIsShown(true);
   };
 
   // favs cards
@@ -61,12 +66,15 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
               <DetailedAssetCardData asset={props.asset!} />
               <div className="lg:col-start-3 text-2xl">
                 <button
-                  onClick={onShowFormHandler}
+                  onClick={onShowBuyFormHandler}
                   className="shadow-lg bg-green-400 shadow-green-500/50 px-4 py-1 mr-4"
                 >
                   Buy
                 </button>
-                <button className="shadow-lg bg-red-500 shadow-red-500/50 px-4 py-1">
+                <button
+                  onClick={onShowSellFormHandler}
+                  className="shadow-lg bg-red-500 shadow-red-500/50 px-4 py-1"
+                >
                   Sell
                 </button>
                 {props.isSearched && (
@@ -84,7 +92,12 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
                 <FaTrash className="absolute top-3 right-5" />
               )}
             </button>
-            {formIsShown && <BuyForm asset={props.asset!} />}
+            {buyFormIsShown && (
+              <TransactionForm buyForm={true} asset={props.asset!} />
+            )}
+            {sellFormIsShown && (
+              <TransactionForm buyForm={false} asset={props.asset!} />
+            )}
           </div>
         </React.Fragment>
       )}
