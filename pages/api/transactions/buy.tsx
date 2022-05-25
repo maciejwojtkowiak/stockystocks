@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import connectToMongo from "../../helpers/connectToMongo";
-import { Asset, BoughtAsset } from "../../types/assetType";
+import connectToMongo from "../../../helpers/connectToMongo";
+import { Asset, BoughtAsset } from "../../../types/assetType";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
@@ -29,15 +29,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       await assetCollection.insertOne(boughtAssetModel);
     }
   }
-
-  if (req.method === "DELETE") {
-    const assetIdForDeletion = req.body;
-    const db = await connectToMongo();
-    const assetCollection = db.collection("detailedAssets");
-    await assetCollection.deleteOne({ asset_id: assetIdForDeletion });
-    console.log("items deleted");
-    console.log(assetCollection);
-  }
 };
-
-export default handler;

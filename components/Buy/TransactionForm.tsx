@@ -5,11 +5,13 @@ import { Asset, BoughtAsset } from "../../types/assetType";
 
 interface funcProps {
   asset: Asset;
+  buyForm: Boolean;
 }
 
-const BuyForm: React.FC<funcProps> = (props) => {
+const TransactionForm: React.FC<funcProps> = (props) => {
   const [quantity, setQuantity] = useState<number>(0);
   const balance = useSelector((state: RootState) => state.assets.balance);
+  console.log(balance);
   const onBuyHandler = async () => {
     const boughtAsset: BoughtAsset = {
       asset: props.asset,
@@ -19,13 +21,15 @@ const BuyForm: React.FC<funcProps> = (props) => {
     if (costOfTransaction > +balance) {
       console.log("Assets is too expensive!");
     }
-    await fetch("/api/", {
-      method: "POST",
-      body: JSON.stringify(boughtAsset),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    if ((props.buyForm && costOfTransaction <= +balance) || !props.buyForm) {
+      await fetch(`/api/transactions/${props.buyForm ? "buy" : "sell"}`, {
+        method: "POST",
+        body: JSON.stringify(boughtAsset),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
   };
 
   const onInputChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,9 +38,9 @@ const BuyForm: React.FC<funcProps> = (props) => {
   return (
     <form>
       <input placeholder="quantity" onChange={onInputChangeQuantity} />
-      <button onClick={onBuyHandler}>Buy!</button>
+      <button onClick={onBuyHandler}>{props.buyForm ? "Buy!" : "Sell!"}</button>
     </form>
   );
 };
 
-export default BuyForm;
+export default TransactionForm;
