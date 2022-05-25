@@ -21,8 +21,8 @@ const TransactionForm: React.FC<funcProps> = (props) => {
     if (costOfTransaction > +balance) {
       console.log("Assets is too expensive!");
     }
-    if (costOfTransaction <= +balance) {
-      await fetch("/api/transactions/buy", {
+    if ((props.buyForm && costOfTransaction <= +balance) || !props.buyForm) {
+      await fetch(`/api/transactions/${props.buyForm ? "buy" : "sell"}`, {
         method: "POST",
         body: JSON.stringify(boughtAsset),
         headers: {
@@ -38,7 +38,7 @@ const TransactionForm: React.FC<funcProps> = (props) => {
   return (
     <form>
       <input placeholder="quantity" onChange={onInputChangeQuantity} />
-      <button onClick={onBuyHandler}>Buy!</button>
+      <button onClick={onBuyHandler}>{props.buyForm ? "Buy!" : "Sell!"}</button>
     </form>
   );
 };
