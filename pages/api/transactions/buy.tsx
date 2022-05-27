@@ -8,6 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const boughtAsset = req.body as BoughtAsset;
     const db = await connectToMongo();
     const assetCollection = db.collection("boughtAssets");
+    const moneyCollection = db.collection("boughtAssets");
     const isTheSameAssetsExist = (await assetCollection
       .find({ "asset.asset_id": boughtAsset.asset.asset_id })
       .toArray()) as BoughtAsset[];

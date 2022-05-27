@@ -11,7 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const moneyFromSelling = (
         boughtAsset.quantity * boughtAsset.asset.price_usd
       ).toFixed(2);
-
+      console.log("money");
       console.log(moneyFromSelling);
       const db = await connectToMongo();
       const boughtAssetCollection = db.collection("boughtAssets");
@@ -42,7 +42,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const money = await moneyCollection.findOne({});
       moneyCollection.updateOne(money!, {
         $set: {
-          money: money!.money + moneyFromSelling,
+          money: +money!.money + +moneyFromSelling,
         },
       });
     }

@@ -8,5 +8,5 @@ export interface boughtAsset {
 
 export type MoneyType = {
   _id: ObjectId;
-  money: string;
+  money: number;
 };
