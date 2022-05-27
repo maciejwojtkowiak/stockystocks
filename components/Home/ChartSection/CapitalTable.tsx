@@ -8,12 +8,15 @@ const CapitalTable = () => {
     (state: RootState) => state.assets.boughtAssets
   );
 
-  const totalBalance =
-    money +
-    boughtAssets.reduce(
-      (acc, cur) => (acc + cur.asset.price_usd) * cur.quantity,
-      0
-    );
+  boughtAssets;
+  const total = boughtAssets.reduce(
+    (acc, cur) => cur.asset.price_usd * cur.quantity,
+    0
+  );
+
+  console.log(total);
+
+  const totalBalance = (+money + total).toFixed(2);
 
   return (
     <div className=" mt-16 grid grid-cols-capital-fill gap-2 mx-2 items-center">
@@ -21,7 +24,7 @@ const CapitalTable = () => {
         Revenue <span className="block">{money}</span>
       </p>
       <p className="text-center bg-green-300 p-2">
-        Money earned <span className="block">{+totalBalance - +money}</span>
+        Money earned <span className="block">{+totalBalance}</span>
       </p>
       <p
         className="text-center bg-green-300 p-2

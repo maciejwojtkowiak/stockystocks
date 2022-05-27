@@ -3,8 +3,6 @@ import FinancialChart from "./ChartSection/FinancialChart";
 import DetailedAssetsGrid from "./DetailedStocks/DetailedAssetsGrid";
 import Profile from "./Profile/Profile";
 import { Asset } from "../../types/assetType";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/Store";
 
 interface props {
   assets: Asset[];

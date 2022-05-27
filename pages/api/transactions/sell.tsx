@@ -8,8 +8,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     {
       const boughtAsset = req.body as BoughtAsset;
-      const moneyFromSelling =
-        boughtAsset.quantity * boughtAsset.asset.price_usd;
+      const moneyFromSelling = (
+        boughtAsset.quantity * boughtAsset.asset.price_usd
+      ).toFixed(2);
+
+      console.log(moneyFromSelling);
       const db = await connectToMongo();
       const boughtAssetCollection = db.collection("boughtAssets");
       const moneyCollection = db.collection("money");
@@ -23,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           "asset.asset_id": boughtAsset.asset.asset_id,
         });
       }
-      if (!(assetToSell.quantity === boughtAsset.quantity)) {
+      if (!(assetToSell.quantity >= boughtAsset.quantity)) {
         boughtAssetCollection.updateOne(
           {
             "asset.asset_id": boughtAsset.asset.asset_id,
