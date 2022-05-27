@@ -14,6 +14,7 @@ const DetailedAssetCardData: React.FC<funcProps> = (props) => {
   const numberToKkRepresentation = (price: number) => {
     return (price / 1000000).toFixed(2);
   };
+  console.log(props.asset);
 
   return (
     <Fragment>

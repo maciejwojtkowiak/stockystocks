@@ -11,7 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const isTheSameAssetsExist = (await assetCollection
       .find({ "asset.asset_id": boughtAsset.asset.asset_id })
       .toArray()) as BoughtAsset[];
-
+    console.log("bought");
     if (isTheSameAssetsExist.length > 0) {
       assetCollection.updateOne(
         { "asset.asset_id": boughtAsset.asset.asset_id },
@@ -30,3 +30,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 };
+
+export default handler;
