@@ -25,7 +25,7 @@ const Home: NextPage = (
 
 export const getStaticProps: GetStaticProps = async () => {
   const assetsId = await getDataFromMongo();
-  console.log(process.env.COIN_API_KEY!.toString());
+  process.env.COIN_API_KEY!.toString();
 
   const assetsPromises = assetsId.map(async (id: string) => {
     const response = await fetch(`https://rest.coinapi.io/v1/assets/${id}`, {

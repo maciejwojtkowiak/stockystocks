@@ -1,4 +1,3 @@
-import { TransformedAssetsFromDb } from "../../types/assetType";
 import { Fragment } from "react";
 import { Asset } from "../../types/assetType";
 
@@ -7,7 +6,6 @@ interface funcProps {
 }
 
 const DetailedAssetCardData: React.FC<funcProps> = (props) => {
-  console.log(props);
   const roundPrice = (price: number) => {
     return price.toFixed(2);
   };

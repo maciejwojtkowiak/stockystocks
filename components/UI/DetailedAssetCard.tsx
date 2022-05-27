@@ -17,9 +17,6 @@ interface funcProps {
 
 const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const dispatch = useDispatch();
-  const fetchedAssets = useSelector(
-    (state: RootState) => state.assets.fetchedAssets
-  );
 
   const [buyFormIsShown, setBuyFormIsShown] = useState<boolean>(false);
   const [sellFormIsShown, setSellFormIsShown] = useState<boolean>(false);

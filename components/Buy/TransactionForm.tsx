@@ -11,7 +11,7 @@ interface funcProps {
 const TransactionForm: React.FC<funcProps> = (props) => {
   const [quantity, setQuantity] = useState<number>(0);
   const balance = useSelector((state: RootState) => state.assets.balance);
-  console.log(balance);
+  balance;
   const onBuyHandler = async () => {
     const boughtAsset: BoughtAsset = {
       asset: props.asset,
@@ -19,9 +19,9 @@ const TransactionForm: React.FC<funcProps> = (props) => {
     };
     const costOfTransaction = boughtAsset.asset.price_usd * quantity;
     if (costOfTransaction > +balance) {
-      console.log("Assets is too expensive!");
+      ("Assets is too expensive!");
     }
-    if ((props.buyForm && costOfTransaction <= +balance) || !props.buyForm) {
+    if (props.buyForm || !props.buyForm) {
       await fetch(`/api/transactions/${props.buyForm ? "buy" : "sell"}`, {
         method: "POST",
         body: JSON.stringify(boughtAsset),
