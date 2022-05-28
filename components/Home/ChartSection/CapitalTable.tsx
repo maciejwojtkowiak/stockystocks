@@ -24,7 +24,7 @@ const CapitalTable = () => {
         Revenue <span className="block">{money.toFixed(2)}$</span>
       </p>
       <p className="text-center bg-green-300 p-2">
-        Money in Assets<span className="block">{total.toFixed(2)}$</span>
+        Free money<span className="block">{total.toFixed(2)}$</span>
       </p>
       <p
         className="text-center bg-green-300 p-2
