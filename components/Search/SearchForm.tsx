@@ -26,7 +26,7 @@ const SearchForm: React.FC<funcProps> = (props) => {
       const [data] = await response.json();
 
       const responseIcon = await fetch(
-        `https://rest.coinapi.io/v1/assets/icons/64`,
+        `https://rest.coinapi.io/v1/assets/icons/256`,
         {
           method: "GET",
           headers: {
@@ -37,13 +37,17 @@ const SearchForm: React.FC<funcProps> = (props) => {
       );
 
       const dataIcon = await responseIcon.json();
-      console.log("icons");
-      console.log(dataIcon);
-      const found = dataIcon.find((data: any) => data.asset_id === assetName);
-      console.log("found");
-      console.log(found);
 
-      props.setAsset(data);
+      const foundLink = dataIcon.find(
+        (data: any) => data.asset_id === assetName
+      );
+
+      const foundAsset = {
+        ...data,
+        imgLink: foundLink,
+      } as Asset;
+
+      props.setAsset(foundAsset);
     };
 
     getData();
