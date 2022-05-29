@@ -44,7 +44,7 @@ const SearchForm: React.FC<funcProps> = (props) => {
 
       const foundAsset = {
         ...data,
-        imgLink: foundLink,
+        imgLink: foundLink.url,
       } as Asset;
 
       props.setAsset(foundAsset);

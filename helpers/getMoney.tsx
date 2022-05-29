@@ -1,5 +1,5 @@
 import connectToMongo from "./connectToMongo";
-import { MoneyType } from "../types/assetBuyAndSell";
+import { MoneyType } from "../types/moneyTypes";
 
 const getMoney = async () => {
   const db = await connectToMongo();

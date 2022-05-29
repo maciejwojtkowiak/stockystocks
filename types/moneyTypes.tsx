@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-export interface boughtAsset {
+export interface BoughtAsset {
   quantity: number;
   id: number;
   val: number;
@@ -9,4 +9,8 @@ export interface boughtAsset {
 export type MoneyType = {
   _id: ObjectId;
   money: number;
+};
+
+export type HistoricalCapital = {
+  historicalCapital: number[];
 };

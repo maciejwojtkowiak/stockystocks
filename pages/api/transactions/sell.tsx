@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToMongo from "../../../helpers/connectToMongo";
-import { MoneyType } from "../../../types/assetBuyAndSell";
+import updateCapital from "../../../helpers/updateCapital";
+import { MoneyType } from "../../../types/moneyTypes";
 
 import { BoughtAsset } from "../../../types/assetType";
 
@@ -11,8 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const moneyFromSelling = (
         boughtAsset.quantity * boughtAsset.asset.price_usd
       ).toFixed(2);
-      console.log("money");
-      console.log(moneyFromSelling);
+
       const db = await connectToMongo();
       const boughtAssetCollection = db.collection("boughtAssets");
       const moneyCollection = db.collection("money");
@@ -21,12 +21,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         "asset.asset_id": boughtAsset.asset.asset_id,
       })) as BoughtAsset;
 
-      if (assetToSell.quantity === boughtAsset.quantity) {
+      if (assetToSell.quantity <= boughtAsset.quantity) {
         boughtAssetCollection.deleteOne({
           "asset.asset_id": boughtAsset.asset.asset_id,
         });
       }
-      if (!(assetToSell.quantity >= boughtAsset.quantity)) {
+      if (assetToSell.quantity >= boughtAsset.quantity) {
         boughtAssetCollection.updateOne(
           {
             "asset.asset_id": boughtAsset.asset.asset_id,
@@ -40,11 +40,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       const money = await moneyCollection.findOne({});
-      moneyCollection.updateOne(money!, {
+      await moneyCollection.updateOne(money!, {
         $set: {
           money: +money!.money + +moneyFromSelling,
         },
       });
+      updateCapital(+money!.money);
     }
   }
 };

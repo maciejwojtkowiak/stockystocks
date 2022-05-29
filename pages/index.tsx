@@ -9,6 +9,7 @@ import { AssetAction } from "../store/asset-slice";
 import { useEffect } from "react";
 import getBoughtAssets from "../helpers/getBoughtAssets";
 import getMoney from "../helpers/getMoney";
+import getHistoricalCapital from "../helpers/getHistoricalCapital";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -18,6 +19,7 @@ const Home: NextPage = (
     dispatch(AssetAction.setFetchedAssets(props.assets));
     dispatch(AssetAction.setBoughtAssets(props.boughtAssets));
     dispatch(AssetAction.setBalance(props.money));
+    dispatch(AssetAction.setHistoricalCapital(props.historicalCapital));
   }, []);
 
   return <MainPage assets={props.assets} />;
@@ -39,12 +41,14 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   const boughtAssets = await getBoughtAssets();
   const money = await getMoney();
+  const historicalCapital = await getHistoricalCapital();
 
   return {
     props: {
       boughtAssets: boughtAssets,
       assets: (await Promise.all(assetsPromises)).flat(),
       money: money,
+      historicalCapital: historicalCapital,
     },
     revalidate: 3600,
   };

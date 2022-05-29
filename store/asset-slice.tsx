@@ -6,6 +6,7 @@ const INITIAL_VALUE: InitialState = {
   fetchedAssets: [],
   boughtAssets: [],
   balance: "",
+  historicalCapital: [],
 };
 
 const AssetSlice = createSlice({
@@ -20,6 +21,9 @@ const AssetSlice = createSlice({
     },
     setBalance(state, action) {
       state.balance = action.payload;
+    },
+    setHistoricalCapital(state, action) {
+      state.historicalCapital.push(...action.payload);
     },
     deleteFetchedAsset(state, action: PayloadAction<string>) {
       const filteredAssetsList = state.fetchedAssets.filter(
