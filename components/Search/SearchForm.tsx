@@ -25,7 +25,29 @@ const SearchForm: React.FC<funcProps> = (props) => {
       );
       const [data] = await response.json();
 
-      props.setAsset(data);
+      const responseIcon = await fetch(
+        `https://rest.coinapi.io/v1/assets/icons/256`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CoinAPI-Key": "EB201340-DF56-494E-BA6F-9524985EA13C",
+          },
+        }
+      );
+
+      const dataIcon = await responseIcon.json();
+
+      const foundLink = dataIcon.find(
+        (data: any) => data.asset_id === assetName
+      );
+
+      const foundAsset = {
+        ...data,
+        imgLink: foundLink.url,
+      } as Asset;
+
+      props.setAsset(foundAsset);
     };
 
     getData();

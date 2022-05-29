@@ -17,6 +17,7 @@ export type Asset = {
   volume_1day_usd: number;
   volume_1mth_usd: number;
   price_usd: number;
+  imgLink: string;
 };
 
 export type AssetFromDb = {

@@ -10,8 +10,15 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/Store";
 
 const FinancialChart = () => {
+  const historicalCapital = useSelector(
+    (state: RootState) => state.assets.historicalCapital
+  );
+
+  console.log(historicalCapital);
   const labels = ["January", "February", "March", "April", "May", "June"];
   ChartJS.register(
     CategoryScale,
@@ -35,7 +42,7 @@ const FinancialChart = () => {
               label: "Your assets",
               backgroundColor: "rgb(0,100,0)",
               borderColor: "rgb(46,139,87)",
-              data: [0, 10, 5, 2, 20, 30, 45],
+              data: historicalCapital,
               tension: 0.5,
             },
           ],

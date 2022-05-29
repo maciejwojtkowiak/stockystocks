@@ -50,6 +50,8 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   };
 
   // favs cards
+  console.log("link");
+  console.log(props.asset?.imgLink);
 
   return (
     <React.Fragment>
@@ -57,7 +59,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
         <React.Fragment>
           <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl relative  ">
             <div className="w-32 h-32 rounded-full grid self-center   ">
-              <Image src={Btc} alt="" />
+              <img src={props.asset.imgLink} alt="icon" />
             </div>
             <div className=" grid grid-cols-fill-40 place-items-center grid-rows-2 auto-rows-min my-6 text-center">
               <DetailedAssetCardData asset={props.asset!} />
