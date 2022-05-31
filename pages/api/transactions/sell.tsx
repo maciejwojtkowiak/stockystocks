@@ -45,7 +45,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           money: +money!.money + +moneyFromSelling,
         },
       });
-      updateCapital(+money!.money);
     }
   }
 };
