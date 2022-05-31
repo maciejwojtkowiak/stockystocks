@@ -28,6 +28,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       };
       await assetCollection.insertOne(boughtAssetModel);
     }
+    const neededMoneyToBuy = boughtAsset.quantity * boughtAsset.asset.price_usd;
+    const moneyCollection = db.collection("money");
+    const money = await moneyCollection.findOne({});
+    moneyCollection.updateOne(money!, {
+      $set: {
+        money: money!.money - neededMoneyToBuy,
+      },
+    });
   }
 };
 
