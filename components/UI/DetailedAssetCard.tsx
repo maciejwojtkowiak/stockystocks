@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
 import { RootState } from "../../store/Store";
 import TransactionForm from "../Buy/TransactionForm";
+import { link } from "fs";
 
 interface funcProps {
   asset?: Asset;
@@ -20,6 +21,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
 
   const [buyFormIsShown, setBuyFormIsShown] = useState<boolean>(false);
   const [sellFormIsShown, setSellFormIsShown] = useState<boolean>(false);
+  const [iconUrl, setIconUrl] = useState<string>("");
   // it is func when user search for item
   const onAddToFavHandler = async () => {
     await fetch("/api/search", {
@@ -30,6 +32,32 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
       },
     });
   };
+  const getIconUrl = () => {
+    const getIcon = async () => {
+      const responseIcon = await fetch(
+        `https://rest.coinapi.io/v1/assets/icons/256`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CoinAPI-Key": "EB201340-DF56-494E-BA6F-9524985EA13C",
+          },
+        }
+      );
+
+      const dataIcon = await responseIcon.json();
+
+      const foundLink = await dataIcon.find(
+        (data: any) => data.asset_id === props.asset?.asset_id
+      );
+
+      const linkUrl = await foundLink.url;
+      setIconUrl(linkUrl);
+    };
+    getIcon();
+  };
+
+  getIconUrl();
 
   const onDeleteHandler = async () => {
     dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
@@ -59,7 +87,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
         <React.Fragment>
           <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl relative  ">
             <div className="w-32 h-32 rounded-full grid self-center   ">
-              <img src={props.asset.imgLink} alt="icon" />
+              <img src={iconUrl} alt="icon" />
             </div>
             <div className=" grid grid-cols-fill-40 place-items-center grid-rows-2 auto-rows-min my-6 text-center">
               <DetailedAssetCardData asset={props.asset!} />
