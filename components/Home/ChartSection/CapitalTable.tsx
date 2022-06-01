@@ -7,6 +7,7 @@ const CapitalTable = () => {
   const boughtAssets = useSelector(
     (state: RootState) => state.assets.boughtAssets
   );
+  // znów hitnij API coinApi by zupdatować wartość zakupionych aktywow
 
   const total = +boughtAssets.reduce(
     (acc, cur) => acc + cur.asset.price_usd * cur.quantity,
