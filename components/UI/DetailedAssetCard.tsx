@@ -1,15 +1,12 @@
-import Btc from "../../images/btc.jpg";
-import Image from "next/image";
 import { Asset } from "../../types/assetType";
 import { FaTrash } from "react-icons/fa";
 import React, { useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
-import BuyForm from "../Buy/TransactionForm";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
-import { RootState } from "../../store/Store";
+
 import TransactionForm from "../Buy/TransactionForm";
-import { link } from "fs";
 
 interface funcProps {
   asset?: Asset;
@@ -57,8 +54,6 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     getIcon();
   };
 
-  getIconUrl();
-
   const onDeleteHandler = async () => {
     dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
     await fetch("/api/", {
@@ -77,17 +72,16 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     setSellFormIsShown(true);
   };
 
-  // favs cards
-  console.log("link");
-  console.log(props.asset?.imgLink);
-
   return (
     <React.Fragment>
       {props.asset && (
         <React.Fragment>
           <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl relative  ">
             <div className="w-32 h-32 rounded-full grid self-center   ">
-              <img src={iconUrl} alt="icon" />
+              <img
+                src={props.isSearched ? props.asset.imgLink : iconUrl}
+                alt="icon"
+              />
             </div>
             <div className=" grid grid-cols-fill-40 place-items-center grid-rows-2 auto-rows-min my-6 text-center">
               <DetailedAssetCardData asset={props.asset!} />
