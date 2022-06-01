@@ -9,12 +9,9 @@ const CapitalTable = () => {
   );
 
   const total = +boughtAssets.reduce(
-    (acc, cur) => cur.asset.price_usd * cur.quantity,
+    (acc, cur) => acc + cur.asset.price_usd * cur.quantity,
     0
   );
-
-  console.log(total);
-  console.log(money);
 
   const totalBalance = (money + total).toFixed(2);
 

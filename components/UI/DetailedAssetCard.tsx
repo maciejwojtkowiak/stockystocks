@@ -54,6 +54,8 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     getIcon();
   };
 
+  getIconUrl();
+
   const onDeleteHandler = async () => {
     dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
     await fetch("/api/", {
