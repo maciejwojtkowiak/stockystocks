@@ -27,11 +27,15 @@ const Home: NextPage = (
   const boughtAssets = useSelector(
     (state: RootState) => state.assets.boughtAssets
   );
-  const moneyInAssets = boughtAssets.reduce((acc, cur) => {
-    return acc + cur.asset.price_usd * cur.quantity;
-  }, 0);
+  const fetchedAssets = useSelector(
+    (state: RootState) => state.assets.boughtAssets
+  );
+  const totalMoneyInAssets = boughtAssets.reduce(
+    (acc, cur) => acc + cur.asset.price_usd * cur.quantity,
+    0
+  );
 
-  // 5870$, przetestuj czy będzie więcej po jakimś czasie
+  console.log(totalMoneyInAssets);
 
   return <MainPage assets={props.assets} />;
 };

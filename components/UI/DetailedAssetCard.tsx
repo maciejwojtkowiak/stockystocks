@@ -2,7 +2,7 @@ import { Asset } from "../../types/assetType";
 import { FaTrash } from "react-icons/fa";
 import React, { useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
-
+import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
 
@@ -54,6 +54,8 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     getIcon();
   };
 
+  if (!props.isSearched) getIconUrl();
+
   const onDeleteHandler = async () => {
     dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
     await fetch("/api/", {
@@ -77,7 +79,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
       {props.asset && (
         <React.Fragment>
           <div className=" h-full bg-gray-100 rounded-lg grid grid-cols-auto-full  drop-shadow-2xl relative  ">
-            <div className="w-32 h-32 rounded-full grid self-center   ">
+            <div className="w-32 h-32 rounded-full grid self-center ml-8   ">
               <img
                 src={props.isSearched ? props.asset.imgLink : iconUrl}
                 alt="icon"
@@ -98,21 +100,23 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
                 >
                   Sell
                 </button>
-                {props.isSearched && (
-                  <button
-                    onClick={onAddToFavHandler}
-                    className="shadow-lg bg-blue-500 shadow-blue-500/50 px-4 py-1"
-                  >
-                    Add to fav
-                  </button>
-                )}
               </div>
             </div>
-            <button onClick={onDeleteHandler}>
-              {!props.isSearched && (
+
+            {!props.isSearched && (
+              <button onClick={onDeleteHandler}>
                 <FaTrash className="absolute top-3 right-5" />
-              )}
-            </button>
+              </button>
+            )}
+            {props.isSearched && (
+              <FaStar
+                onClick={onAddToFavHandler}
+                className="shadow-lg bg-blue-500 shadow-blue-500/50 absolute top-3 right-5 "
+              >
+                Add to fav
+              </FaStar>
+            )}
+
             {buyFormIsShown && (
               <TransactionForm buyForm={true} asset={props.asset!} />
             )}
