@@ -4,23 +4,34 @@ import { GetStaticProps } from "next";
 import { getDataFromMongo } from "../helpers/getDataFromMongo";
 import { InferGetStaticPropsType } from "next";
 import { Asset } from "../types/assetType";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AssetAction } from "../store/asset-slice";
 import { useEffect } from "react";
 import getBoughtAssets from "../helpers/getBoughtAssets";
 import getMoney from "../helpers/getMoney";
 import getHistoricalCapital from "../helpers/getHistoricalCapital";
+import { RootState } from "../store/Store";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(AssetAction.setFetchedAssets(props.assets));
     dispatch(AssetAction.setBoughtAssets(props.boughtAssets));
     dispatch(AssetAction.setBalance(props.money));
     dispatch(AssetAction.setHistoricalCapital(props.historicalCapital));
   }, []);
+
+  const boughtAssets = useSelector(
+    (state: RootState) => state.assets.boughtAssets
+  );
+  const moneyInAssets = boughtAssets.reduce((acc, cur) => {
+    return acc + cur.asset.price_usd * cur.quantity;
+  }, 0);
+
+  // 5870$, przetestuj czy będzie więcej po jakimś czasie
 
   return <MainPage assets={props.assets} />;
 };
