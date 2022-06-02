@@ -5,7 +5,6 @@ import DetailedAssetCardData from "./DetailedAssetCardData";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
-
 import TransactionForm from "../Buy/TransactionForm";
 
 interface funcProps {

@@ -35,8 +35,6 @@ const Home: NextPage = (
     0
   );
 
-  console.log(totalMoneyInAssets);
-
   return <MainPage assets={props.assets} />;
 };
 
