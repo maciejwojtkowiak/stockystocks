@@ -1,6 +1,6 @@
 import { Asset } from "../../types/assetType";
 import { FaTrash } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -52,8 +52,9 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     };
     getIcon();
   };
-
-  if (!props.isSearched) getIconUrl();
+  useEffect(() => {
+    if (!props.isSearched) getIconUrl();
+  }, []);
 
   const onDeleteHandler = async () => {
     dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));
