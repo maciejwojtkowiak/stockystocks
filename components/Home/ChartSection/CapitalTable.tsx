@@ -1,12 +1,14 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/Store";
-import { Asset } from "../../../types/assetType";
+import { Asset, BoughtAsset } from "../../../types/assetType";
 
 const CapitalTable = () => {
+  // pobaw się z bought assetami i zrob aktualna cene co odswiezenie
   const [actualBoughtAssetsList, setActualBoughtAssetsList] = useState<Asset[]>(
     []
   );
+  console.log(actualBoughtAssetsList);
   const money = +useSelector((state: RootState) => state.assets.balance);
   const boughtAssets = useSelector(
     (state: RootState) => state.assets.boughtAssets
@@ -25,17 +27,21 @@ const CapitalTable = () => {
   });
   const getActualBoughtAssets = async () => {
     const data = await Promise.all(actualBoughtAssets);
+    console.log("data");
+    console.log(data);
     setActualBoughtAssetsList(data);
   };
 
-  useCallback(() => {
+  useEffect(() => {
     getActualBoughtAssets();
   }, []);
 
-  const total = +boughtAssets.reduce(
-    (acc, cur) => acc + cur.asset.price_usd * cur.quantity,
-    0
-  );
+  const total = +actualBoughtAssetsList.reduce((acc, cur) => {
+    const foundBoughtAsset = boughtAssets.find(
+      (asset) => asset.asset.asset_id === cur.asset_id
+    ) as BoughtAsset;
+    return acc + cur.price_usd * foundBoughtAsset?.quantity;
+  }, 0);
 
   const totalBalance = (money + total).toFixed(2);
 
