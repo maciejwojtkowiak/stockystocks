@@ -13,7 +13,7 @@ const CapitalTable = () => {
   const boughtAssets = useSelector(
     (state: RootState) => state.assets.boughtAssets
   );
-  const getActualBoughtAssets = () => {
+  const getActualBoughtAssets = async () => {
     const boughtIds = [] as string[];
     boughtAssets.map((asset) => boughtIds.push(asset.asset.asset_id));
     const fetchActualBoughtAsset = boughtIds.map(async (id: string) => {
@@ -28,16 +28,16 @@ const CapitalTable = () => {
       return await response.json();
     });
 
-    const data = Promise.all(fetchActualBoughtAsset);
-    console.log(data);
+    const data = (await Promise.all(fetchActualBoughtAsset)).flat();
+    setActualBoughtAssetsList(data);
   };
 
   useEffect(() => {
-    console.log("actual");
-    console.log(getActualBoughtAssets());
-  }, []);
-  console.log("actual");
+    getActualBoughtAssets();
+  }, [boughtAssets.length]);
 
+  console.log("actual list");
+  console.log(actualBoughtAssetsList);
   const total = +actualBoughtAssetsList.reduce((acc, cur) => {
     const foundBoughtAsset = boughtAssets.find(
       (asset) => asset.asset.asset_id === cur.asset_id

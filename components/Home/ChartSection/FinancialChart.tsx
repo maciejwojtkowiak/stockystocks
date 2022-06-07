@@ -18,7 +18,6 @@ const FinancialChart = () => {
     (state: RootState) => state.assets.historicalCapital
   );
 
-  console.log(historicalCapital);
   const labels = ["January", "February", "March", "April", "May", "June"];
   ChartJS.register(
     CategoryScale,
