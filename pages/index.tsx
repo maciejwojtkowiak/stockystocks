@@ -11,12 +11,12 @@ import getBoughtAssets from "../helpers/getBoughtAssets";
 import getMoney from "../helpers/getMoney";
 import getHistoricalCapital from "../helpers/getHistoricalCapital";
 import { RootState } from "../store/Store";
+import { notificationAction } from "../store/notification-slice";
 
 const Home: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(AssetAction.setFetchedAssets(props.assets));
     dispatch(AssetAction.setBoughtAssets(props.boughtAssets));
@@ -24,16 +24,21 @@ const Home: NextPage = (
     dispatch(AssetAction.setHistoricalCapital(props.historicalCapital));
   }, []);
 
-  const boughtAssets = useSelector(
-    (state: RootState) => state.assets.boughtAssets
+  const notificationIsShown = useSelector(
+    (state: RootState) => state.notification.isShown
   );
-  const fetchedAssets = useSelector(
-    (state: RootState) => state.assets.boughtAssets
-  );
-  const totalMoneyInAssets = boughtAssets.reduce(
-    (acc, cur) => acc + cur.asset.price_usd * cur.quantity,
-    0
-  );
+  useEffect(() => {
+    const notificationTimer = setTimeout(() => {
+      dispatch(
+        notificationAction.handleNotification({
+          isShown: false,
+          message: "",
+        })
+      );
+    }, 3000);
+
+    return () => clearTimeout(notificationTimer);
+  }, [notificationIsShown]);
 
   return <MainPage assets={props.assets} />;
 };

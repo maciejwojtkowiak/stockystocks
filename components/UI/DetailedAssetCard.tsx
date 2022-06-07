@@ -18,7 +18,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const [buyFormIsShown, setBuyFormIsShown] = useState<boolean>(false);
   const [sellFormIsShown, setSellFormIsShown] = useState<boolean>(false);
   const [iconUrl, setIconUrl] = useState<string>("");
-  // it is func when user search for item
+
   const onAddToFavHandler = async () => {
     await fetch("/api/search", {
       method: "POST",
