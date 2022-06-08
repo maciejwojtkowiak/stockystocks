@@ -1,11 +1,10 @@
 import { Asset } from "../../types/assetType";
 import { FaTrash } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailedAssetCardData from "./DetailedAssetCardData";
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { AssetAction } from "../../store/asset-slice";
-
 import TransactionForm from "../Buy/TransactionForm";
 
 interface funcProps {
@@ -19,7 +18,7 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
   const [buyFormIsShown, setBuyFormIsShown] = useState<boolean>(false);
   const [sellFormIsShown, setSellFormIsShown] = useState<boolean>(false);
   const [iconUrl, setIconUrl] = useState<string>("");
-  // it is func when user search for item
+
   const onAddToFavHandler = async () => {
     await fetch("/api/search", {
       method: "POST",
@@ -53,8 +52,9 @@ const DetailedAssetCard: React.FC<funcProps> = (props) => {
     };
     getIcon();
   };
-
-  if (!props.isSearched) getIconUrl();
+  useEffect(() => {
+    if (!props.isSearched) getIconUrl();
+  }, []);
 
   const onDeleteHandler = async () => {
     dispatch(AssetAction.deleteFetchedAsset(props.asset!.asset_id));

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { notificationAction } from "../../store/notification-slice";
 import { RootState } from "../../store/Store";
 import { Asset, BoughtAsset } from "../../types/assetType";
 
@@ -11,7 +12,7 @@ interface funcProps {
 const TransactionForm: React.FC<funcProps> = (props) => {
   const [quantity, setQuantity] = useState<number>(0);
   const balance = useSelector((state: RootState) => state.assets.balance);
-  balance;
+  const dispatch = useDispatch();
   const onBuyHandler = async () => {
     const boughtAsset: BoughtAsset = {
       asset: props.asset,
@@ -19,9 +20,14 @@ const TransactionForm: React.FC<funcProps> = (props) => {
     };
     const costOfTransaction = boughtAsset.asset.price_usd * quantity;
     if (costOfTransaction > +balance) {
-      ("Assets is too expensive!");
+      dispatch(
+        notificationAction.handleNotification({
+          message: "You do not have enough money",
+          isShown: true,
+        })
+      );
     }
-    if (props.buyForm || !props.buyForm) {
+    if (costOfTransaction <= +balance) {
       await fetch(`/api/transactions/${props.buyForm ? "buy" : "sell"}`, {
         method: "POST",
         body: JSON.stringify(boughtAsset),

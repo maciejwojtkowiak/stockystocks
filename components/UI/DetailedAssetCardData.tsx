@@ -6,6 +6,7 @@ interface funcProps {
 }
 
 const DetailedAssetCardData: React.FC<funcProps> = (props) => {
+  console.log(props.asset);
   const roundPrice = (price: number) => {
     return price.toFixed(2);
   };
