@@ -3,7 +3,6 @@ import MainPage from "../components/Home/MainPage";
 import { GetStaticProps } from "next";
 import { getDataFromMongo } from "../helpers/getDataFromMongo";
 import { InferGetStaticPropsType } from "next";
-import { Asset } from "../types/assetType";
 import { useDispatch, useSelector } from "react-redux";
 import { AssetAction } from "../store/asset-slice";
 import { useEffect } from "react";
