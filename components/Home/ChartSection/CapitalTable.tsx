@@ -48,16 +48,16 @@ const CapitalTable = () => {
       }, 0);
       const totalBalance = (money + moneyInAssets).toFixed(2);
       setMoneyInAssets(moneyInAssets);
-
       setTotalMoney(+totalBalance);
-
-      fetch("/api/updateCapital", {
-        body: JSON.stringify(+totalBalance),
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      if (+totalBalance > 0) {
+        fetch("/api/updateCapital", {
+          body: JSON.stringify(+totalBalance),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
     }
   }, [actualBoughtAssetsList.length]);
 
