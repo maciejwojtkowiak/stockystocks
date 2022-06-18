@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import updateCapital from "../../../helpers/updateCapital";
 import { RootState } from "../../../store/Store";
 import { Asset, BoughtAsset } from "../../../types/assetType";
-
+// 9013$
 const CapitalTable = () => {
-  // pobaw się z bought assetami i zrob aktualna cene co odswiezenie
   const [actualBoughtAssetsList, setActualBoughtAssetsList] = useState<Asset[]>(
     []
   );
+  const [moneyInAssets, setMoneyInAssets] = useState<number>(0);
+  const [totalMoney, setTotalMoney] = useState<number>(0);
 
   const money = +useSelector((state: RootState) => state.assets.balance);
   const boughtAssets = useSelector(
@@ -36,16 +38,28 @@ const CapitalTable = () => {
     getActualBoughtAssets();
   }, [boughtAssets.length]);
 
-  console.log("actual list");
-  console.log(actualBoughtAssetsList);
-  const total = +actualBoughtAssetsList.reduce((acc, cur) => {
-    const foundBoughtAsset = boughtAssets.find(
-      (asset) => asset.asset.asset_id === cur.asset_id
-    ) as BoughtAsset;
-    return acc + cur.price_usd * foundBoughtAsset?.quantity;
-  }, 0);
-
-  const totalBalance = (money + total).toFixed(2);
+  useEffect(() => {
+    if (actualBoughtAssetsList) {
+      const moneyInAssets = +actualBoughtAssetsList.reduce((acc, cur) => {
+        const foundBoughtAsset = boughtAssets.find(
+          (asset) => asset.asset.asset_id === cur.asset_id
+        ) as BoughtAsset;
+        return acc + cur.price_usd * foundBoughtAsset?.quantity;
+      }, 0);
+      const totalBalance = (money + moneyInAssets).toFixed(2);
+      setMoneyInAssets(moneyInAssets);
+      setTotalMoney(+totalBalance);
+      if (+totalBalance > 0) {
+        fetch("/api/updateCapital", {
+          body: JSON.stringify(+totalBalance),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+    }
+  }, [actualBoughtAssetsList.length]);
 
   return (
     <div className=" mt-16 grid grid-cols-capital-fill gap-2 mx-2 items-center">
@@ -53,13 +67,14 @@ const CapitalTable = () => {
         Free Money <span className="block">{money.toFixed(2)}$</span>
       </p>
       <p className="text-center bg-green-300 p-2">
-        Money in assets<span className="block">{total.toFixed(2)}$</span>
+        Money in assets
+        <span className="block">{moneyInAssets.toFixed(2)}$</span>
       </p>
       <p
         className="text-center bg-green-300 p-2
       "
       >
-        Total capital <span className="block">{totalBalance}$</span>
+        Total capital <span className="block">{totalMoney.toFixed(2)}$</span>
       </p>
     </div>
   );
